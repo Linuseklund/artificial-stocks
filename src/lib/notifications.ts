@@ -23,7 +23,7 @@ async function showNotification(title: string, body: string) {
     if ('serviceWorker' in navigator) {
       const registration = await navigator.serviceWorker.getRegistration();
       if (registration) {
-        await registration.showNotification(title, { body, icon: '/favicon.svg' });
+        await registration.showNotification(title, { body, icon: `${import.meta.env.BASE_URL}favicon.svg` });
         return;
       }
     }

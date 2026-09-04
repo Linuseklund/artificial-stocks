@@ -1,0 +1,36 @@
+import type { Lang } from '../i18n/languages';
+
+export const reasons: Record<Lang, string[]> = {
+  sv: [
+    'Suget går alltid över – oavsett hur starkt det känns just nu, brukar det klinga av inom 15–20 minuter.',
+    'Du har redan bevisat att du klarar svåra stunder utan alkohol. Den här är bara en till.',
+    'Tänk på hur du känt dig dagen efter tidigare. Den känslan väger tyngre än den korta lättnaden nu.',
+    'Varje dag nykter bygger något du inte kan få tillbaka om du dricker ikväll.',
+    'Det här suget är en signal, inte ett kommando. Du bestämmer vad du gör med det.',
+    'Du är inte ensam om det här. Många har känt exakt samma sug och tagit sig igenom det.',
+    'Om du ringer eller pratar med någon inom fem minuter minskar suget ofta rejält.',
+    'Tänk på personerna som räknar med dig – och på dig själv om ett år.',
+    'Alkohol löser inget just nu. Det bara skjuter känslan på framtiden, med ränta.',
+    'Du har kommit så här långt. Det vore synd att låta en enskild stund ta det ifrån dig.',
+    'Det du känner nu är obehagligt, men det är inte farligt. Du kan sitta kvar i det.',
+    'Fråga dig: vad är det jag egentligen behöver just nu – vila, kontakt, mat, rörelse?',
+    'Din framtida jag kommer att vara tacksam för valet du gör om två minuter.',
+    'Nykterhet är inte en rak linje. Det räcker att du klarar just den här stunden.',
+  ],
+  en: [
+    'The craving always passes – however strong it feels right now, it usually fades within 15–20 minutes.',
+    "You've already proven you can get through hard moments without alcohol. This is just one more.",
+    'Think about how you felt the day after, before. That feeling weighs more than the short relief now.',
+    "Every sober day builds something you can't get back if you drink tonight.",
+    "This craving is a signal, not a command. You decide what you do with it.",
+    "You're not alone in this. Many people have felt this exact craving and gotten through it.",
+    'If you call or talk to someone within five minutes, the craving often drops a lot.',
+    'Think of the people counting on you – and of yourself a year from now.',
+    "Alcohol doesn't solve anything right now. It just pushes the feeling into the future, with interest.",
+    "You've come this far. It would be a shame to let a single moment take that away.",
+    "What you're feeling now is uncomfortable, but it isn't dangerous. You can sit with it.",
+    'Ask yourself: what do I actually need right now – rest, connection, food, movement?',
+    'Your future self will be grateful for the choice you make in the next two minutes.',
+    "Sobriety isn't a straight line. It's enough to get through just this moment.",
+  ],
+};

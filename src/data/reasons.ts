@@ -1,0 +1,16 @@
+export const reasons: string[] = [
+  'Suget går alltid över – oavsett hur starkt det känns just nu, brukar det klinga av inom 15–20 minuter.',
+  'Du har redan bevisat att du klarar svåra stunder utan alkohol. Den här är bara en till.',
+  'Tänk på hur du känt dig dagen efter tidigare. Den känslan väger tyngre än den korta lättnaden nu.',
+  'Varje dag nykter bygger något du inte kan få tillbaka om du dricker ikväll.',
+  'Det här suget är en signal, inte ett kommando. Du bestämmer vad du gör med det.',
+  'Du är inte ensam om det här. Många har känt exakt samma sug och tagit sig igenom det.',
+  'Om du ringer eller pratar med någon inom fem minuter minskar suget ofta rejält.',
+  'Tänk på personerna som räknar med dig – och på dig själv om ett år.',
+  'Alkohol löser inget just nu. Det bara skjuter känslan på framtiden, med ränta.',
+  'Du har kommit så här långt. Det vore synd att låta en enskild stund ta det ifrån dig.',
+  'Det du känner nu är obehagligt, men det är inte farligt. Du kan sitta kvar i det.',
+  'Fråga dig: vad är det jag egentligen behöver just nu – vila, kontakt, mat, rörelse?',
+  'Din framtida jag kommer att vara tacksam för valet du gör om två minuter.',
+  'Nykterhet är inte en rak linje. Det räcker att du klarar just den här stunden.',
+];

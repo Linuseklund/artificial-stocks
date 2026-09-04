@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { AppState, StepProgress } from './types';
-import { loadState, saveState, defaultState } from './lib/storage';
+import type { Lang } from './i18n/languages';
+import { loadState, saveState, makeDefaultState } from './lib/storage';
+import { I18nContext } from './i18n/context';
+import { ui } from './i18n/ui';
+import { useNotificationScheduler } from './lib/notifications';
 import Onboarding from './components/Onboarding';
 import Home from './components/Home';
 import Steps from './components/Steps';
@@ -16,6 +20,16 @@ export default function App() {
     saveState(next);
   }
 
+  const setLang = (lang: Lang) => update({ ...state, lang });
+
+  const i18nValue = { lang: state.lang, t: ui[state.lang], setLang };
+
+  useNotificationScheduler(state, update);
+
+  useEffect(() => {
+    document.documentElement.lang = state.lang;
+  }, [state.lang]);
+
   function handleOnboardingComplete(name: string, soberSince: string) {
     update({ ...state, name, soberSince });
   }
@@ -26,26 +40,27 @@ export default function App() {
 
   function handleSettingsUpdate(name: string, soberSince: string) {
     update({ ...state, name, soberSince });
-    setTab('home');
   }
 
   function handleReset() {
-    update({ ...defaultState });
+    update(makeDefaultState());
     setTab('home');
   }
 
-  if (!state.soberSince) {
-    return <Onboarding onComplete={handleOnboardingComplete} />;
-  }
-
   return (
-    <div className="min-h-screen bg-[#f4f7f6]">
-      {tab === 'home' && <Home name={state.name} soberSince={state.soberSince} />}
-      {tab === 'steps' && <Steps state={state} onUpdateStep={handleUpdateStep} />}
-      {tab === 'settings' && (
-        <Settings state={state} onUpdate={handleSettingsUpdate} onReset={handleReset} />
+    <I18nContext.Provider value={i18nValue}>
+      {!state.soberSince ? (
+        <Onboarding onComplete={handleOnboardingComplete} />
+      ) : (
+        <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+          {tab === 'home' && <Home name={state.name} soberSince={state.soberSince} />}
+          {tab === 'steps' && <Steps state={state} onUpdateStep={handleUpdateStep} />}
+          {tab === 'settings' && (
+            <Settings state={state} onUpdateProfile={handleSettingsUpdate} onUpdateState={update} onReset={handleReset} />
+          )}
+          <NavBar active={tab} onChange={setTab} />
+        </div>
       )}
-      <NavBar active={tab} onChange={setTab} />
-    </div>
+    </I18nContext.Provider>
   );
 }

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { durationSince } from '../lib/time';
+import { useI18n } from '../i18n/context';
 
 interface Props {
   soberSince: string;
 }
 
 export default function SobrietyCounter({ soberSince }: Props) {
+  const { t } = useI18n();
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -16,14 +18,14 @@ export default function SobrietyCounter({ soberSince }: Props) {
   const { days, hours, minutes } = durationSince(soberSince, now);
 
   return (
-    <div className="rounded-3xl bg-white shadow-sm border border-teal-100 px-6 py-6 text-center">
-      <p className="text-sm font-medium text-teal-600 uppercase tracking-wide mb-3">
-        Du har varit nykter i
+    <div className="rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-6 py-7 text-center">
+      <p className="text-xs font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider mb-4">
+        {t.counter.heading}
       </p>
-      <div className="flex items-end justify-center gap-4">
-        <TimeBlock value={days} label={days === 1 ? 'dag' : 'dagar'} />
-        <TimeBlock value={hours} label={hours === 1 ? 'timme' : 'timmar'} />
-        <TimeBlock value={minutes} label={minutes === 1 ? 'minut' : 'minuter'} />
+      <div className="flex items-end justify-center gap-6">
+        <TimeBlock value={days} label={t.counter.days(days)} />
+        <TimeBlock value={hours} label={t.counter.hours(hours)} />
+        <TimeBlock value={minutes} label={t.counter.minutes(minutes)} />
       </div>
     </div>
   );
@@ -31,9 +33,11 @@ export default function SobrietyCounter({ soberSince }: Props) {
 
 function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
-    <div className="flex flex-col items-center min-w-16">
-      <span className="text-4xl font-bold text-teal-900 tabular-nums">{value}</span>
-      <span className="text-xs text-teal-600 mt-1">{label}</span>
+    <div className="flex flex-col items-center min-w-14">
+      <span className="text-4xl font-semibold text-neutral-900 dark:text-neutral-50 tabular-nums tracking-tight">
+        {value}
+      </span>
+      <span className="text-xs text-neutral-400 dark:text-neutral-500 mt-1">{label}</span>
     </div>
   );
 }

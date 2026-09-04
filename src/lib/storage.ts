@@ -1,26 +1,33 @@
 import type { AppState } from '../types';
+import { detectLang } from '../i18n/languages';
 
-const STORAGE_KEY = 'nykter-appstate-v1';
+const STORAGE_KEY = 'nykter-appstate-v2';
 
-export const defaultState: AppState = {
-  soberSince: null,
-  name: '',
-  steps: {},
-  lastCheckIn: { morningDate: null, eveningDate: null },
-};
+export function makeDefaultState(): AppState {
+  return {
+    soberSince: null,
+    name: '',
+    lang: detectLang(),
+    steps: {},
+    notifications: { enabled: false, morningTime: '08:00', eveningTime: '20:00' },
+    lastCheckIn: { morningDate: null, eveningDate: null },
+  };
+}
 
 export function loadState(): AppState {
+  const fallback = makeDefaultState();
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { ...defaultState };
+    if (!raw) return fallback;
     const parsed = JSON.parse(raw);
     return {
-      ...defaultState,
+      ...fallback,
       ...parsed,
-      lastCheckIn: { ...defaultState.lastCheckIn, ...(parsed.lastCheckIn ?? {}) },
+      notifications: { ...fallback.notifications, ...(parsed.notifications ?? {}) },
+      lastCheckIn: { ...fallback.lastCheckIn, ...(parsed.lastCheckIn ?? {}) },
     };
   } catch {
-    return { ...defaultState };
+    return fallback;
   }
 }
 

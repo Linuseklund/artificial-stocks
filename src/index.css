@@ -6,9 +6,14 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
+  color-scheme: light dark;
 }
 
 body {
-  background-color: #f4f7f6;
-  color: #1f2d2b;
+  background-color: light-dark(#fafaf9, #0a0a0a);
+}
+
+textarea,
+input {
+  color-scheme: light dark;
 }

@@ -3,6 +3,7 @@ import SobrietyCounter from './SobrietyCounter';
 import DailyMessage from './DailyMessage';
 import UrgeButton from './UrgeButton';
 import UrgeModal from './UrgeModal';
+import { useI18n } from '../i18n/context';
 
 interface Props {
   name: string;
@@ -10,15 +11,16 @@ interface Props {
 }
 
 export default function Home({ name, soberSince }: Props) {
+  const { t } = useI18n();
   const [showUrge, setShowUrge] = useState(false);
 
   return (
-    <div className="px-4 pt-4 pb-24 max-w-md mx-auto w-full space-y-4">
+    <div className="px-4 pt-6 pb-24 max-w-md mx-auto w-full space-y-4">
       <div>
-        <h1 className="text-xl font-bold text-teal-900">
-          {name ? `Hej, ${name}` : 'Hej'}
+        <h1 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight">
+          {name ? t.home.greeting(name) : t.home.greetingNoName}
         </h1>
-        <p className="text-sm text-teal-600">Bra att du är här idag.</p>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">{t.home.subtitle}</p>
       </div>
 
       <SobrietyCounter soberSince={soberSince} />

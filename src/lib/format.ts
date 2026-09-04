@@ -1,8 +1,9 @@
 import type { Duration } from './time';
+import type { UiStrings } from '../i18n/ui';
 
-export function formatStreakPhrase(d: Duration): string {
-  if (d.totalHours < 24) return 'idag';
-  return `${d.days} ${d.days === 1 ? 'dag' : 'dagar'}`;
+export function formatStreakPhrase(d: Duration, t: UiStrings): string {
+  if (d.totalHours < 24) return t.counter.today;
+  return `${d.days} ${t.counter.days(d.days)}`;
 }
 
 function hashString(s: string): number {
@@ -13,7 +14,6 @@ function hashString(s: string): number {
   return Math.abs(h);
 }
 
-export function pickForDay(pool: string[], dayKey: string): string {
-  if (pool.length === 0) return '';
+export function pickForDay<T>(pool: T[], dayKey: string): T {
   return pool[hashString(dayKey) % pool.length];
 }

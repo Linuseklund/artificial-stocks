@@ -120,6 +120,7 @@ export interface UiStrings {
     voiceSpeedNormal: string;
     voicePickLabel: string;
     voiceAuto: string;
+    voiceQualityHint: string;
     voiceTest: string;
     voiceAutoSpeakUrge: string;
     dangerTitle: string;
@@ -258,6 +259,7 @@ export const ui: Record<Lang, UiStrings> = {
       voiceSpeedNormal: 'Normal',
       voicePickLabel: 'Röst',
       voiceAuto: 'Välj automatiskt',
+      voiceQualityHint: 'Låter rösten mekanisk? De flesta system har mänskligare röster att ladda ner. iPhone: Inställningar → Tillgänglighet → Talat innehåll → Röster. Android: Inställningar → Tillgänglighet → Text till tal.',
       voiceTest: 'Testa rösten',
       voiceAutoSpeakUrge: 'Läs upp automatiskt när jag trycker på sugknappen',
       dangerTitle: 'Radera all data',
@@ -394,6 +396,7 @@ export const ui: Record<Lang, UiStrings> = {
       voiceSpeedNormal: 'Normal',
       voicePickLabel: 'Voice',
       voiceAuto: 'Choose automatically',
+      voiceQualityHint: 'Does the voice sound robotic? Most systems have more human voices available to download. iPhone: Settings → Accessibility → Spoken Content → Voices. Android: Settings → Accessibility → Text-to-speech.',
       voiceTest: 'Test the voice',
       voiceAutoSpeakUrge: 'Read aloud automatically when I tap the craving button',
       dangerTitle: 'Delete all data',
@@ -530,6 +533,7 @@ export const ui: Record<Lang, UiStrings> = {
       voiceSpeedNormal: 'Normal',
       voicePickLabel: 'Stimme',
       voiceAuto: 'Automatisch wählen',
+      voiceQualityHint: 'Klingt die Stimme mechanisch? Die meisten Systeme haben natürlichere Stimmen zum Herunterladen. iPhone: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen. Android: Einstellungen → Bedienungshilfen → Text-in-Sprache.',
       voiceTest: 'Stimme testen',
       voiceAutoSpeakUrge: 'Automatisch vorlesen, wenn ich auf den Verlangen-Knopf tippe',
       dangerTitle: 'Alle Daten löschen',
@@ -666,6 +670,7 @@ export const ui: Record<Lang, UiStrings> = {
       voiceSpeedNormal: 'Normale',
       voicePickLabel: 'Voix',
       voiceAuto: 'Choisir automatiquement',
+      voiceQualityHint: 'La voix sonne mécanique ? La plupart des systèmes proposent des voix plus humaines à télécharger. iPhone : Réglages → Accessibilité → Contenu énoncé → Voix. Android : Paramètres → Accessibilité → Synthèse vocale.',
       voiceTest: 'Tester la voix',
       voiceAutoSpeakUrge: 'Lire automatiquement quand j’appuie sur le bouton d’envie',
       dangerTitle: 'Supprimer toutes les données',
@@ -802,6 +807,7 @@ export const ui: Record<Lang, UiStrings> = {
       voiceSpeedNormal: 'Normal',
       voicePickLabel: 'Voz',
       voiceAuto: 'Elegir automáticamente',
+      voiceQualityHint: '¿La voz suena robótica? La mayoría de los sistemas tienen voces más humanas para descargar. iPhone: Ajustes → Accesibilidad → Contenido hablado → Voces. Android: Ajustes → Accesibilidad → Texto a voz.',
       voiceTest: 'Probar la voz',
       voiceAutoSpeakUrge: 'Leer automáticamente cuando pulse el botón de ganas',
       dangerTitle: 'Borrar todos los datos',
@@ -938,6 +944,7 @@ export const ui: Record<Lang, UiStrings> = {
       voiceSpeedNormal: 'Normale',
       voicePickLabel: 'Voce',
       voiceAuto: 'Scegli automaticamente',
+      voiceQualityHint: 'La voce suona meccanica? La maggior parte dei sistemi ha voci più umane da scaricare. iPhone: Impostazioni → Accessibilità → Contenuto pronunciato → Voci. Android: Impostazioni → Accessibilità → Sintesi vocale.',
       voiceTest: 'Prova la voce',
       voiceAutoSpeakUrge: 'Leggi automaticamente quando tocco il pulsante del desiderio',
       dangerTitle: 'Elimina tutti i dati',

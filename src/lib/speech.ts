@@ -1,4 +1,5 @@
 import type { Lang } from '../i18n/languages';
+import { speechLocales } from '../i18n/languages';
 
 /**
  * Text-to-speech and speech recognition built on the browser's Web Speech API.
@@ -13,6 +14,16 @@ const femaleVoiceNames = [
   // English
   'samantha', 'karen', 'moira', 'tessa', 'fiona', 'serena', 'ava', 'allison',
   'susan', 'zira', 'joanna', 'salli', 'kimberly', 'amy', 'emma', 'nicole',
+  // German
+  'anna', 'petra', 'marlene', 'vicki', 'katja', 'hedda', 'steffi',
+  // French
+  'amélie', 'amelie', 'audrey', 'aurelie', 'aurélie', 'céline', 'celine',
+  'chantal', 'léa', 'lea', 'julie', 'virginie', 'hortense',
+  // Spanish
+  'mónica', 'monica', 'paulina', 'marisol', 'lucia', 'lucía', 'conchita',
+  'penélope', 'penelope', 'sabina', 'helena', 'laura',
+  // Italian
+  'alice', 'federica', 'paola', 'elsa', 'carla', 'bianca', 'isabella',
 ];
 
 const maleVoiceNames = [
@@ -21,6 +32,14 @@ const maleVoiceNames = [
   // English
   'daniel', 'alex', 'fred', 'oliver', 'thomas', 'david', 'mark', 'aaron',
   'arthur', 'gordon', 'rishi', 'matthew', 'brian', 'russell',
+  // German
+  'yannick', 'hans', 'stefan', 'markus', 'conrad', 'martin', 'klaus',
+  // French
+  'nicolas', 'mathieu', 'henri', 'rémi', 'remi', 'paul',
+  // Spanish
+  'jorge', 'diego', 'enrique', 'carlos', 'juan', 'miguel', 'pablo',
+  // Italian
+  'luca', 'cosimo', 'giorgio', 'marco', 'paolo',
 ];
 
 function scoreVoice(voice: SpeechSynthesisVoice): number {
@@ -43,10 +62,9 @@ function scoreVoice(voice: SpeechSynthesisVoice): number {
 
 export function listVoices(lang: Lang): SpeechSynthesisVoice[] {
   if (!speechSupported()) return [];
-  const prefix = lang === 'sv' ? 'sv' : 'en';
   return window.speechSynthesis
     .getVoices()
-    .filter((v) => v.lang.toLowerCase().startsWith(prefix))
+    .filter((v) => v.lang.toLowerCase().startsWith(lang))
     .sort((a, b) => scoreVoice(b) - scoreVoice(a));
 }
 
@@ -108,7 +126,7 @@ export function speak(text: string, options: SpeakOptions) {
 
   try {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = options.lang === 'sv' ? 'sv-SE' : 'en-US';
+    utterance.lang = speechLocales[options.lang];
     utterance.rate = options.rate ?? 0.85;
     utterance.pitch = 1.05;
     utterance.volume = 1;
@@ -192,7 +210,7 @@ export function listenOnce(handlers: ListenHandlers): (() => void) | null {
   if (!Recognition) return null;
 
   const recognition = new Recognition();
-  recognition.lang = handlers.lang === 'sv' ? 'sv-SE' : 'en-US';
+  recognition.lang = speechLocales[handlers.lang];
   recognition.continuous = false;
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;

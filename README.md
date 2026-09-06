@@ -1,4 +1,4 @@
-# Nykter – dag för dag
+# Sober – day by day
 
 En enkel, tydlig app som stöttar nykterhet med utgångspunkt i tolvstegsprogrammet.
 
@@ -9,9 +9,10 @@ En enkel, tydlig app som stöttar nykterhet med utgångspunkt i tolvstegsprogram
 - **"Jag vill dricka"-knappen** – en stor, central knapp som vid tryck visar en anledning att avstå och ett konkret förslag på vad du kan göra istället (ring en vän, ta en promenad, laga mat, gå på bio med mera).
 - **Tolvstegsprogrammet** – alla 12 steg med beskrivning, en fråga att reflektera kring, och möjlighet att markera "pågår"/"genomfört" samt skriva egna anteckningar per steg.
 - **Notiser** – aktivera webbläsarnotiser och ställ in valfri tid för morgon- och kvällspåminnelse, plus en testnotis-knapp. Detta är lokala, klientdrivna notiser (ingen server) och kräver att appen/fliken är öppen, i förgrunden eller bakgrunden, när tiden slår in – det finns ingen bakomliggande push-tjänst som kan väcka en helt stängd flik.
-- **Flerspråkig** – svenska och engelska, med automatisk språkdetektering vid första besöket och en språkväljare i inställningarna.
-- **Modern, avskalad design** – neutral färgpalett med en grön accent, gott om luft, och stöd för mörkt läge som följer systemets tema automatiskt.
-- Installningsbar som PWA (lägg till på hemskärmen) tack vare manifest och service worker.
+- **Sex språk** – engelska, svenska, tyska, franska, spanska och italienska. Appen startar på engelska; språket byts i inställningarna och sparas till nästa gång.
+- **Modern, avskalad design** – monokrom palett med en enda mättad accentfärg, reserverad för sugknappen. Serif i rubriker, gott om luft, och mörkt läge som följer systemets tema.
+- **Röst** – en lugn röst kan läsa upp råden, och du kan prata med appen och få svar. Allt sker i webbläsarens egen talsyntes – ingenting skickas någonstans.
+- Installerbar som PWA (lägg till på hemskärmen) tack vare manifest och service worker.
 - All data sparas lokalt i webbläsaren (`localStorage`) – inget konto, ingen server.
 
 ## Utveckling

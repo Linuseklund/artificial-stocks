@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { StepDef } from '../data/steps';
 import type { StepProgress } from '../types';
 import { useI18n } from '../i18n/context';
+import Icon from './Icon';
 
 interface Props {
   step: StepDef;
@@ -13,57 +14,55 @@ export default function StepCard({ step, progress, onChange }: Props) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
 
-  const statusColor = progress.completed
-    ? 'bg-emerald-600 text-white'
+  const markerClass = progress.completed
+    ? 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 border-transparent'
     : progress.started
-      ? 'bg-amber-100 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400'
-      : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400';
+      ? 'border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100'
+      : 'border-neutral-200 dark:border-neutral-800 text-neutral-400 dark:text-neutral-600';
 
   return (
-    <div className="rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center gap-3 px-4 py-4 text-left"
-      >
+    <div>
+      <button onClick={() => setOpen((o) => !o)} className="w-full flex items-center gap-4 py-4 text-left">
         <span
-          className={`flex-none w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${statusColor}`}
+          className={`flex-none w-8 h-8 rounded-full border flex items-center justify-center text-[13px] ${markerClass}`}
         >
-          {progress.completed ? '✓' : step.number}
+          {progress.completed ? <Icon name="check" className="w-4 h-4" strokeWidth={2} /> : step.number}
         </span>
         <span className="flex-1 min-w-0">
-          <span className="block text-sm font-medium text-neutral-900 dark:text-neutral-100">
-            {step.number}. {step.title}
+          <span className="block text-[15px] text-neutral-900 dark:text-neutral-100 leading-snug">
+            {step.title}
           </span>
-          <span className="block text-xs text-neutral-400 dark:text-neutral-500 mt-0.5">
-            {progress.completed
-              ? t.steps.statusDone
-              : progress.started
-                ? t.steps.statusStarted
-                : t.steps.statusNotStarted}
-          </span>
+          {(progress.started || progress.completed) && (
+            <span className="block text-[12px] text-neutral-400 dark:text-neutral-600 mt-0.5">
+              {progress.completed ? t.steps.statusDone : t.steps.statusStarted}
+            </span>
+          )}
         </span>
-        <span
-          className={`text-neutral-300 dark:text-neutral-600 transition-transform ${open ? 'rotate-180' : ''}`}
-        >
-          ⌄
-        </span>
+        <Icon
+          name="chevron"
+          className={`w-4 h-4 flex-none text-neutral-300 dark:text-neutral-700 transition-transform ${open ? 'rotate-180' : ''}`}
+        />
       </button>
 
       {open && (
-        <div className="px-4 pb-4 space-y-3 border-t border-neutral-100 dark:border-neutral-800 pt-3">
-          <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">{step.description}</p>
+        <div className="pb-6 pl-12 space-y-4">
+          <p className="text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            {step.description}
+          </p>
 
-          <div className="rounded-xl bg-neutral-50 dark:bg-neutral-800/60 px-3 py-2.5">
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-1">
+          <div>
+            <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mb-1">
               {t.steps.reflectionLabel}
             </p>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300 italic">{step.reflection}</p>
+            <p className="text-[15px] text-neutral-800 dark:text-neutral-200 leading-relaxed">
+              {step.reflection}
+            </p>
           </div>
 
           <div>
             <label
               htmlFor={`notes-${step.number}`}
-              className="block text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-1"
+              className="block text-[13px] text-neutral-400 dark:text-neutral-500 mb-1.5"
             >
               {t.steps.notesLabel}
             </label>
@@ -73,27 +72,27 @@ export default function StepCard({ step, progress, onChange }: Props) {
               onChange={(e) => onChange({ ...progress, notes: e.target.value })}
               placeholder={t.steps.notesPlaceholder}
               rows={3}
-              className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 resize-none"
+              className="w-full rounded-xl bg-neutral-50 dark:bg-neutral-900 px-3.5 py-3 text-[15px] text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100 resize-none"
             />
           </div>
 
           <div className="flex gap-2">
             <button
               onClick={() => onChange({ ...progress, started: true, completed: false })}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium border transition-colors ${
+              className={`flex-1 rounded-xl py-2.5 text-[14px] transition-colors ${
                 progress.started && !progress.completed
-                  ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-400'
-                  : 'border-neutral-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400'
+                  ? 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900'
+                  : 'bg-neutral-50 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400'
               }`}
             >
               {t.steps.markStarted}
             </button>
             <button
               onClick={() => onChange({ ...progress, started: true, completed: true })}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium border transition-colors ${
+              className={`flex-1 rounded-xl py-2.5 text-[14px] transition-colors ${
                 progress.completed
-                  ? 'bg-emerald-600 border-emerald-600 text-white'
-                  : 'border-neutral-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400'
+                  ? 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900'
+                  : 'bg-neutral-50 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400'
               }`}
             >
               {t.steps.markDone}

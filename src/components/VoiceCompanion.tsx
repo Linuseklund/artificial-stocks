@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useI18n } from '../i18n/context';
 import type { VoiceSettings } from '../types';
+import Icon from './Icon';
 import {
   listenOnce,
   recognitionSupported,
@@ -135,39 +136,35 @@ export default function VoiceCompanion({ voice, onClose }: Props) {
   const busy = status !== 'idle';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm px-4 py-6">
-      <div className="w-full max-w-sm bg-white dark:bg-neutral-900 rounded-3xl shadow-xl max-h-[92vh] overflow-y-auto">
-        <div className="px-6 pt-7 pb-3 text-center">
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-950/30 dark:bg-black/60 backdrop-blur-md px-4 py-6">
+      <div className="w-full max-w-sm bg-white dark:bg-neutral-950 rounded-3xl max-h-[92vh] overflow-y-auto ring-1 ring-neutral-900/5 dark:ring-white/10">
+        <div className="px-7 pt-9 pb-6 text-center">
+          <h2 className="text-[22px] font-medium text-neutral-900 dark:text-neutral-50 tracking-tight">
             {t.voice.title}
           </h2>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1.5 leading-relaxed">
+          <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-2 leading-relaxed">
             {t.voice.subtitle}
           </p>
         </div>
 
-        <div className="px-6 flex flex-col items-center">
+        <div className="px-7 flex flex-col items-center">
           <button
             onClick={busy ? stopEverything : startListening}
             disabled={!canListen && status === 'idle'}
             aria-label={busy ? t.voice.stop : t.voice.listenButton}
-            className={`relative w-28 h-28 rounded-full flex items-center justify-center transition-colors disabled:opacity-40 ${
-              status === 'listening'
-                ? 'bg-emerald-600 text-white'
-                : status === 'speaking'
-                  ? 'bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300'
-                  : 'bg-emerald-600 text-white hover:bg-emerald-700'
+            className={`relative w-24 h-24 rounded-full flex items-center justify-center transition-colors disabled:opacity-30 ${
+              status === 'speaking'
+                ? 'bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100'
+                : 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 hover:opacity-90'
             }`}
           >
             {busy && (
-              <span className="absolute inset-0 rounded-full bg-emerald-500/30 animate-ping" />
+              <span className="absolute inset-0 rounded-full bg-neutral-900/10 dark:bg-white/10 animate-ping" />
             )}
-            <span className="relative text-3xl">
-              {status === 'listening' ? '🎙️' : status === 'speaking' ? '🔊' : '🎤'}
-            </span>
+            <Icon name={status === 'speaking' ? 'waveform' : 'mic'} className="relative w-7 h-7" />
           </button>
 
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-3 text-center min-h-5">
+          <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mt-4 text-center min-h-5">
             {status === 'listening'
               ? t.voice.listening
               : status === 'speaking'
@@ -178,29 +175,31 @@ export default function VoiceCompanion({ voice, onClose }: Props) {
           </p>
 
           {micError && (
-            <p className="text-xs text-red-600 dark:text-red-400 mt-1 text-center">
+            <p className="text-[12px] text-amber-600 dark:text-amber-500 mt-1 text-center leading-relaxed">
               {micError === 'denied' ? t.voice.micDenied : t.voice.micFailed}
             </p>
           )}
         </div>
 
-        <div className="px-6 py-4 space-y-3">
+        <div className="px-7 pt-6 space-y-5">
           {transcript && (
-            <div className="rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 px-4 py-3">
-              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-1">
+            <div>
+              <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mb-1">
                 {t.voice.youSaid}
               </p>
-              <p className="text-sm text-neutral-900 dark:text-neutral-100">{transcript}</p>
+              <p className="text-[15px] text-neutral-900 dark:text-neutral-100">{transcript}</p>
             </div>
           )}
 
           {reply && (
-            <div className="rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 px-4 py-3">
-              <p className="text-sm text-emerald-950 dark:text-emerald-100 leading-relaxed">{reply}</p>
+            <div className="border-l-2 border-neutral-200 dark:border-neutral-800 pl-4">
+              <p className="text-[15px] text-neutral-800 dark:text-neutral-200 leading-relaxed">
+                {reply}
+              </p>
               {canSpeak && (
                 <button
                   onClick={() => say(reply)}
-                  className="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400 underline underline-offset-2"
+                  className="mt-2.5 text-[13px] text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors"
                 >
                   {t.voice.repeat}
                 </button>
@@ -209,7 +208,7 @@ export default function VoiceCompanion({ voice, onClose }: Props) {
           )}
 
           <div>
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-2">
+            <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mb-2.5">
               {t.voice.moodPrompt}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -217,7 +216,7 @@ export default function VoiceCompanion({ voice, onClose }: Props) {
                 <button
                   key={intent}
                   onClick={() => pickMood(intent)}
-                  className="rounded-full border border-neutral-200 dark:border-neutral-800 px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-emerald-600 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                  className="rounded-full bg-neutral-100 dark:bg-neutral-900 px-3.5 py-2 text-[14px] text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors"
                 >
                   {t.voice.moods[intent]}
                 </button>
@@ -227,25 +226,25 @@ export default function VoiceCompanion({ voice, onClose }: Props) {
 
           <button
             onClick={() => say(calmingSession[lang])}
-            className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 text-sm font-medium py-3"
+            className="w-full py-4 text-[15px] text-neutral-600 dark:text-neutral-300 border-t border-neutral-100 dark:border-neutral-900 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
           >
             {t.voice.calmingSession}
           </button>
 
           {!canSpeak && (
-            <p className="text-xs text-neutral-400 text-center leading-relaxed">
+            <p className="text-[12px] text-neutral-400 dark:text-neutral-600 text-center leading-relaxed">
               {speechAvailable ? t.voice.speechMuted : t.voice.speechUnsupported}
             </p>
           )}
         </div>
 
-        <div className="px-6 pb-6 pt-1">
+        <div className="px-7 pt-2 pb-7">
           <button
             onClick={() => {
               stopEverything();
               onClose();
             }}
-            className="w-full rounded-xl bg-neutral-900 dark:bg-emerald-600 text-white font-medium text-base py-3.5 hover:bg-neutral-800 dark:hover:bg-emerald-500 transition-colors"
+            className="w-full rounded-2xl bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 font-medium text-[15px] py-4 hover:opacity-90 transition-opacity"
           >
             {t.voice.close}
           </button>

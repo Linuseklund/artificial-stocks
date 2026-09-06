@@ -7,18 +7,17 @@ interface Props {
 export default function UrgeButton({ onPress }: Props) {
   const { t } = useI18n();
   return (
-    <div className="flex flex-col items-center py-5">
+    <div className="flex flex-col items-center py-8">
       <button
         onClick={onPress}
         aria-label={t.urge.buttonLabel}
-        className="w-40 h-40 rounded-full bg-amber-500 text-white shadow-lg shadow-amber-500/20 flex flex-col items-center justify-center gap-1 active:scale-95 transition-transform hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-500/30"
+        className="w-44 h-44 rounded-full bg-amber-500 text-white flex items-center justify-center px-8 active:scale-[0.97] transition-transform hover:bg-amber-600 focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-500/30"
       >
-        <span className="text-3xl">✋</span>
-        <span className="text-base font-semibold leading-tight px-5 text-center">
+        <span className="text-[19px] font-medium leading-snug text-center text-balance">
           {t.urge.buttonLabel}
         </span>
       </button>
-      <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4 text-center max-w-xs leading-relaxed">
+      <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mt-5 text-center max-w-[17rem] leading-relaxed">
         {t.urge.buttonHelper}
       </p>
     </div>

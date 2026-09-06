@@ -10,10 +10,13 @@ html {
 }
 
 body {
-  background-color: light-dark(#fafaf9, #0a0a0a);
+  background-color: light-dark(#ffffff, #0a0a0a);
+  /* Tabular figures keep the sobriety counter from jittering as it ticks. */
+  font-variant-numeric: tabular-nums;
 }
 
 textarea,
-input {
+input,
+select {
   color-scheme: light dark;
 }

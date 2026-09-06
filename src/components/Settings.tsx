@@ -52,7 +52,7 @@ function Toggle({
       }`}
     >
       <span
-        className={`absolute top-[3px] w-[22px] h-[22px] rounded-full transition-transform ${
+        className={`absolute left-0 top-[3px] w-[22px] h-[22px] rounded-full transition-transform ${
           checked
             ? 'translate-x-[21px] bg-white dark:bg-neutral-900'
             : 'translate-x-[3px] bg-white dark:bg-neutral-600'
@@ -257,6 +257,8 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
                   </select>
                 </div>
               )}
+
+              <p className={hintClass}>{t.settings.voiceQualityHint}</p>
 
               <label className="flex items-start gap-3 cursor-pointer">
                 <input

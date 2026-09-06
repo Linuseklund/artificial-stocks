@@ -1,9 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { reasons } from '../data/reasons';
 import { suggestions } from '../data/suggestions';
 import { useI18n } from '../i18n/context';
+import type { VoiceSettings } from '../types';
+import { speak, speechSupported, stopSpeaking, waitForVoices } from '../lib/speech';
 
 interface Props {
+  voice: VoiceSettings;
   onClose: () => void;
 }
 
@@ -15,7 +18,7 @@ function pickRandom<T>(arr: T[], excludeIndex?: number): { item: T; index: numbe
   return { item: arr[index], index };
 }
 
-export default function UrgeModal({ onClose }: Props) {
+export default function UrgeModal({ voice, onClose }: Props) {
   const { t, lang } = useI18n();
   const reasonPool = reasons[lang];
   const suggestionPool = suggestions[lang];
@@ -25,6 +28,40 @@ export default function UrgeModal({ onClose }: Props) {
 
   const [reason, setReason] = useState(initialReason);
   const [suggestion, setSuggestion] = useState(initialSuggestion);
+  const [speaking, setSpeaking] = useState(false);
+
+  const canSpeak = speechSupported() && voice.enabled;
+  // The icon is decorative and reads badly aloud, so only the text is spoken.
+  const spokenAdvice = `${reason.item} ${suggestion.item.text}`;
+  const adviceRef = useRef(spokenAdvice);
+  adviceRef.current = spokenAdvice;
+
+  function readAloud(text: string) {
+    if (!canSpeak) return;
+    speak(text, {
+      lang,
+      rate: voice.rate,
+      voiceURI: voice.voiceURI || undefined,
+      onStart: () => setSpeaking(true),
+      onEnd: () => setSpeaking(false),
+    });
+  }
+
+  useEffect(() => {
+    if (!canSpeak || !voice.autoSpeakUrge) return;
+    let cancelled = false;
+    void waitForVoices().then(() => {
+      if (!cancelled) readAloud(adviceRef.current);
+    });
+    return () => {
+      cancelled = true;
+      stopSpeaking();
+    };
+    // Auto-play happens once, for the advice shown when the modal opens.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => stopSpeaking, []);
 
   function newSuggestion() {
     setSuggestion((prev) => pickRandom(suggestionPool, prev.index));
@@ -75,6 +112,16 @@ export default function UrgeModal({ onClose }: Props) {
               {t.urge.suggestionAnother}
             </button>
           </section>
+
+          {canSpeak && (
+            <button
+              onClick={() => (speaking ? (stopSpeaking(), setSpeaking(false)) : readAloud(spokenAdvice))}
+              className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 text-sm font-medium py-3 flex items-center justify-center gap-2"
+            >
+              <span>{speaking ? '⏹️' : '🔊'}</span>
+              {speaking ? t.voice.stop : t.voice.listenAloud}
+            </button>
+          )}
         </div>
 
         <div className="px-6 pb-6 pt-1 space-y-3">

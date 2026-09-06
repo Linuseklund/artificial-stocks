@@ -40,6 +40,39 @@ export interface UiStrings {
     dismiss: string;
     footer: string;
   };
+  voice: {
+    openButton: string;
+    openHelper: string;
+    title: string;
+    subtitle: string;
+    listenButton: string;
+    listening: string;
+    speaking: string;
+    stop: string;
+    calmingSession: string;
+    youSaid: string;
+    moodPrompt: string;
+    repeat: string;
+    close: string;
+    micDenied: string;
+    micFailed: string;
+    micUnsupported: string;
+    speechUnsupported: string;
+    speechMuted: string;
+    listenAloud: string;
+    moods: {
+      craving: string;
+      stress: string;
+      lonely: string;
+      sad: string;
+      angry: string;
+      social: string;
+      tired: string;
+      celebrating: string;
+      relapse: string;
+      general: string;
+    };
+  };
   steps: {
     title: string;
     subtitle: string;
@@ -70,6 +103,18 @@ export interface UiStrings {
     eveningTimeLabel: string;
     sendTest: string;
     testSent: string;
+    voiceTitle: string;
+    voiceEnable: string;
+    voiceDescription: string;
+    voiceUnsupported: string;
+    voiceSpeedLabel: string;
+    voiceSpeedSlow: string;
+    voiceSpeedCalm: string;
+    voiceSpeedNormal: string;
+    voicePickLabel: string;
+    voiceAuto: string;
+    voiceTest: string;
+    voiceAutoSpeakUrge: string;
     dangerTitle: string;
     dangerDescription: string;
     dangerButton: string;
@@ -132,6 +177,39 @@ export const ui: Record<Lang, UiStrings> = {
       dismiss: 'Jag mår bättre nu',
       footer: 'Om suget känns för starkt att hantera själv, ring en vän, din sponsor eller vården.',
     },
+    voice: {
+      openButton: 'Prata med mig',
+      openHelper: 'En lugn röst som lyssnar och pratar dig igenom stunden.',
+      title: 'Prata med mig',
+      subtitle: 'Berätta hur du känner dig, så svarar jag med lugn röst.',
+      listenButton: 'Tryck och prata',
+      listening: 'Jag lyssnar…',
+      speaking: 'Talar…',
+      stop: 'Stoppa',
+      calmingSession: 'Lugnande andning',
+      youSaid: 'Du sa',
+      moodPrompt: 'Eller välj hur du känner dig',
+      repeat: 'Säg igen',
+      close: 'Stäng',
+      micDenied: 'Mikrofonen är blockerad. Tillåt mikrofon i webbläsarens inställningar, eller välj en känsla nedan.',
+      micFailed: 'Jag kunde inte höra dig. Försök igen, eller välj en känsla nedan.',
+      micUnsupported: 'Taligenkänning stöds inte här – välj en känsla nedan istället.',
+      speechUnsupported: 'Din webbläsare kan inte läsa upp text, så svaren visas i text istället.',
+      speechMuted: 'Rösten är avstängd i inställningarna – svaren visas i text.',
+      listenAloud: 'Lyssna',
+      moods: {
+        craving: 'Sug',
+        stress: 'Stress',
+        lonely: 'Ensam',
+        sad: 'Ledsen',
+        angry: 'Arg',
+        social: 'Fest',
+        tired: 'Trött',
+        celebrating: 'Firar',
+        relapse: 'Återfall',
+        general: 'Vet inte',
+      },
+    },
     steps: {
       title: 'Tolvstegsprogrammet',
       subtitle: 'Ta ett steg i taget, i din egen takt. Ingen dömer om det tar tid.',
@@ -162,6 +240,18 @@ export const ui: Record<Lang, UiStrings> = {
       eveningTimeLabel: 'Kvällspåminnelse',
       sendTest: 'Skicka testnotis',
       testSent: 'Testnotis skickad',
+      voiceTitle: 'Röst',
+      voiceEnable: 'Läs upp med röst',
+      voiceDescription: 'En lugn röst läser upp råden. Allt sker i din webbläsare – inget skickas någonstans.',
+      voiceUnsupported: 'Din webbläsare stödjer inte uppläsning, så råden visas bara i text.',
+      voiceSpeedLabel: 'Talhastighet',
+      voiceSpeedSlow: 'Långsam',
+      voiceSpeedCalm: 'Lugn',
+      voiceSpeedNormal: 'Normal',
+      voicePickLabel: 'Röst',
+      voiceAuto: 'Välj automatiskt',
+      voiceTest: 'Testa rösten',
+      voiceAutoSpeakUrge: 'Läs upp automatiskt när jag trycker på sugknappen',
       dangerTitle: 'Radera all data',
       dangerDescription: 'Tar bort din nykterhetstid, dina anteckningar och din stegframgång permanent från den här enheten.',
       dangerButton: 'Radera data',
@@ -222,6 +312,39 @@ export const ui: Record<Lang, UiStrings> = {
       dismiss: "I'm feeling better now",
       footer: 'If the craving feels too strong to handle alone, call a friend, your sponsor, or a helpline.',
     },
+    voice: {
+      openButton: 'Talk to me',
+      openHelper: 'A calm voice that listens and talks you through the moment.',
+      title: 'Talk to me',
+      subtitle: 'Tell me how you are feeling, and I will answer in a calm voice.',
+      listenButton: 'Tap and speak',
+      listening: 'I am listening…',
+      speaking: 'Speaking…',
+      stop: 'Stop',
+      calmingSession: 'Calming breath',
+      youSaid: 'You said',
+      moodPrompt: 'Or pick how you feel',
+      repeat: 'Say it again',
+      close: 'Close',
+      micDenied: 'The microphone is blocked. Allow microphone access in your browser settings, or pick a feeling below.',
+      micFailed: "I couldn't hear you. Try again, or pick a feeling below.",
+      micUnsupported: 'Speech recognition is not supported here – pick a feeling below instead.',
+      speechUnsupported: 'Your browser cannot read text aloud, so the answers are shown as text instead.',
+      speechMuted: 'The voice is turned off in settings – answers are shown as text.',
+      listenAloud: 'Listen',
+      moods: {
+        craving: 'Craving',
+        stress: 'Stress',
+        lonely: 'Lonely',
+        sad: 'Sad',
+        angry: 'Angry',
+        social: 'Party',
+        tired: 'Tired',
+        celebrating: 'Celebrating',
+        relapse: 'Relapse',
+        general: 'Not sure',
+      },
+    },
     steps: {
       title: 'The Twelve Steps',
       subtitle: "Take one step at a time, at your own pace. No one's judging if it takes time.",
@@ -252,6 +375,18 @@ export const ui: Record<Lang, UiStrings> = {
       eveningTimeLabel: 'Evening reminder',
       sendTest: 'Send test notification',
       testSent: 'Test notification sent',
+      voiceTitle: 'Voice',
+      voiceEnable: 'Read aloud with voice',
+      voiceDescription: 'A calm voice reads the advice aloud. Everything runs in your browser – nothing is sent anywhere.',
+      voiceUnsupported: 'Your browser does not support speech, so advice is shown as text only.',
+      voiceSpeedLabel: 'Speaking speed',
+      voiceSpeedSlow: 'Slow',
+      voiceSpeedCalm: 'Calm',
+      voiceSpeedNormal: 'Normal',
+      voicePickLabel: 'Voice',
+      voiceAuto: 'Choose automatically',
+      voiceTest: 'Test the voice',
+      voiceAutoSpeakUrge: 'Read aloud automatically when I tap the craving button',
       dangerTitle: 'Delete all data',
       dangerDescription: 'Permanently removes your sobriety time, notes, and step progress from this device.',
       dangerButton: 'Delete data',

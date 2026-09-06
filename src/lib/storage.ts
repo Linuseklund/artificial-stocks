@@ -10,6 +10,7 @@ export function makeDefaultState(): AppState {
     lang: detectLang(),
     steps: {},
     notifications: { enabled: false, morningTime: '08:00', eveningTime: '20:00' },
+    voice: { enabled: true, rate: 0.85, voiceURI: '', autoSpeakUrge: false },
     lastCheckIn: { morningDate: null, eveningDate: null },
   };
 }
@@ -24,6 +25,7 @@ export function loadState(): AppState {
       ...fallback,
       ...parsed,
       notifications: { ...fallback.notifications, ...(parsed.notifications ?? {}) },
+      voice: { ...fallback.voice, ...(parsed.voice ?? {}) },
       lastCheckIn: { ...fallback.lastCheckIn, ...(parsed.lastCheckIn ?? {}) },
     };
   } catch {

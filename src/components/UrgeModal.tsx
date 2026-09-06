@@ -4,6 +4,7 @@ import { suggestions } from '../data/suggestions';
 import { useI18n } from '../i18n/context';
 import type { VoiceSettings } from '../types';
 import { speak, speechSupported, stopSpeaking, waitForVoices } from '../lib/speech';
+import Icon from './Icon';
 
 interface Props {
   voice: VoiceSettings;
@@ -72,42 +73,43 @@ export default function UrgeModal({ voice, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm px-4 py-6">
-      <div className="w-full max-w-sm bg-white dark:bg-neutral-900 rounded-3xl shadow-xl max-h-[90vh] overflow-y-auto">
-        <div className="px-6 pt-7 pb-2 text-center">
-          <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-950/30 dark:bg-black/60 backdrop-blur-md px-4 py-6">
+      <div className="w-full max-w-sm bg-white dark:bg-neutral-950 rounded-3xl max-h-[92vh] overflow-y-auto ring-1 ring-neutral-900/5 dark:ring-white/10">
+        <div className="px-7 pt-9 pb-6">
+          <h2 className="font-serif text-[30px] leading-[1.1] text-neutral-900 dark:text-neutral-50 text-balance">
             {t.urge.modalTitle}
           </h2>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1.5 leading-relaxed">
+          <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-2 leading-relaxed">
             {t.urge.modalSubtitle}
           </p>
         </div>
 
-        <div className="px-6 py-5 space-y-3">
-          <section className="rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 p-4">
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-2">
+        <div className="px-7 divide-y divide-neutral-100 dark:divide-neutral-900 border-t border-neutral-100 dark:border-neutral-900">
+          <section className="py-5">
+            <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mb-2">
               {t.urge.reasonLabel}
             </p>
-            <p className="text-neutral-900 dark:text-neutral-100 text-sm leading-relaxed">{reason.item}</p>
+            <p className="text-neutral-900 dark:text-neutral-100 text-[15px] leading-relaxed">
+              {reason.item}
+            </p>
             <button
               onClick={newReason}
-              className="mt-3 text-xs font-medium text-emerald-700 dark:text-emerald-400 underline underline-offset-2"
+              className="mt-3 text-[13px] text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors"
             >
               {t.urge.reasonAnother}
             </button>
           </section>
 
-          <section className="rounded-2xl bg-amber-50 dark:bg-amber-950/30 p-4">
-            <p className="text-xs font-medium text-amber-700 dark:text-amber-400 uppercase tracking-wider mb-2">
+          <section className="py-5">
+            <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mb-2">
               {t.urge.suggestionLabel}
             </p>
-            <div className="flex items-start gap-3">
-              <span className="text-xl leading-none">{suggestion.item.icon}</span>
-              <p className="text-amber-950 dark:text-amber-100 text-sm leading-relaxed">{suggestion.item.text}</p>
-            </div>
+            <p className="text-neutral-900 dark:text-neutral-100 text-[15px] leading-relaxed">
+              {suggestion.item.text}
+            </p>
             <button
               onClick={newSuggestion}
-              className="mt-3 text-xs font-medium text-amber-700 dark:text-amber-400 underline underline-offset-2"
+              className="mt-3 text-[13px] text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors"
             >
               {t.urge.suggestionAnother}
             </button>
@@ -116,22 +118,22 @@ export default function UrgeModal({ voice, onClose }: Props) {
           {canSpeak && (
             <button
               onClick={() => (speaking ? (stopSpeaking(), setSpeaking(false)) : readAloud(spokenAdvice))}
-              className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 text-sm font-medium py-3 flex items-center justify-center gap-2"
+              className="w-full py-4 text-[15px] text-neutral-600 dark:text-neutral-300 flex items-center justify-center gap-2.5 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
             >
-              <span>{speaking ? '⏹️' : '🔊'}</span>
+              <Icon name={speaking ? 'stop' : 'speaker'} className="w-[18px] h-[18px]" />
               {speaking ? t.voice.stop : t.voice.listenAloud}
             </button>
           )}
         </div>
 
-        <div className="px-6 pb-6 pt-1 space-y-3">
+        <div className="px-7 pt-6 pb-7 space-y-4">
           <button
             onClick={onClose}
-            className="w-full rounded-xl bg-neutral-900 dark:bg-emerald-600 text-white font-medium text-base py-3.5 hover:bg-neutral-800 dark:hover:bg-emerald-500 active:bg-neutral-950 transition-colors"
+            className="w-full rounded-2xl bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 font-medium text-[15px] py-4 hover:opacity-90 transition-opacity"
           >
             {t.urge.dismiss}
           </button>
-          <p className="text-center text-xs text-neutral-400 dark:text-neutral-500 leading-relaxed">
+          <p className="text-center text-[12px] text-neutral-400 dark:text-neutral-600 leading-relaxed">
             {t.urge.footer}
           </p>
         </div>

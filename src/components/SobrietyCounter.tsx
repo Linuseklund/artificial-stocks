@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function SobrietyCounter({ soberSince }: Props) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -16,28 +16,32 @@ export default function SobrietyCounter({ soberSince }: Props) {
   }, []);
 
   const { days, hours, minutes } = durationSince(soberSince, now);
+  const since = new Date(soberSince).toLocaleDateString(lang, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 
   return (
-    <div className="rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-6 py-7 text-center">
-      <p className="text-xs font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider mb-4">
-        {t.counter.heading}
-      </p>
-      <div className="flex items-end justify-center gap-6">
-        <TimeBlock value={days} label={t.counter.days(days)} />
-        <TimeBlock value={hours} label={t.counter.hours(hours)} />
-        <TimeBlock value={minutes} label={t.counter.minutes(minutes)} />
+    <div className="py-10">
+      <p className="text-[13px] text-neutral-400 dark:text-neutral-500">{t.counter.heading}</p>
+
+      <div className="flex items-baseline gap-3 mt-3">
+        <span className="font-serif text-[5.5rem] leading-[0.85] text-neutral-900 dark:text-neutral-50">
+          {days}
+        </span>
+        <span className="font-serif text-2xl text-neutral-400 dark:text-neutral-500">
+          {t.counter.days(days)}
+        </span>
       </div>
-    </div>
-  );
-}
 
-function TimeBlock({ value, label }: { value: number; label: string }) {
-  return (
-    <div className="flex flex-col items-center min-w-14">
-      <span className="text-4xl font-semibold text-neutral-900 dark:text-neutral-50 tabular-nums tracking-tight">
-        {value}
-      </span>
-      <span className="text-xs text-neutral-400 dark:text-neutral-500 mt-1">{label}</span>
+      {/* Hairline with the exact figures beneath, in the reference's annotation style. */}
+      <div className="mt-5 pt-2.5 border-t border-neutral-200 dark:border-neutral-800 flex justify-between text-[11px] text-neutral-400 dark:text-neutral-600">
+        <span>
+          {hours} {t.counter.hours(hours)} · {minutes} {t.counter.minutes(minutes)}
+        </span>
+        <span>{since}</span>
+      </div>
     </div>
   );
 }

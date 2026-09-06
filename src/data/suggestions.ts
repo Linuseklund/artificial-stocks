@@ -1,6 +1,10 @@
 import type { Lang } from '../i18n/languages';
 
 export interface Suggestion {
+  /**
+   * Kept alongside the text but not rendered: the minimal interface uses line
+   * icons and one accent colour, and a coloured emoji per row fought with that.
+   */
   icon: string;
   text: string;
 }

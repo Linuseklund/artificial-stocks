@@ -10,6 +10,9 @@ function toLocalInputValue(d: Date): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
+const fieldClass =
+  'w-full rounded-2xl bg-neutral-50 dark:bg-neutral-900 px-4 py-3.5 text-[16px] text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100';
+
 export default function Onboarding({ onComplete }: Props) {
   const { t } = useI18n();
   const [name, setName] = useState('');
@@ -17,62 +20,66 @@ export default function Onboarding({ onComplete }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const iso = new Date(when).toISOString();
-    onComplete(name.trim(), iso);
+    onComplete(name.trim(), new Date(when).toISOString());
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-10 bg-neutral-50 dark:bg-neutral-950">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-10">
-          <div className="w-12 h-12 rounded-full bg-emerald-600 mx-auto mb-5" />
-          <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight">
-            {t.onboarding.title}
-          </h1>
-          <p className="text-neutral-500 dark:text-neutral-400 mt-2 text-[15px] leading-relaxed">
-            {t.onboarding.subtitle}
+    <div className="min-h-screen flex flex-col justify-center px-7 py-12 max-w-md mx-auto w-full">
+      <div className="mb-12">
+        <h1 className="font-serif text-[44px] leading-[1.05] text-neutral-900 dark:text-neutral-50">
+          {t.onboarding.title}
+        </h1>
+        <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-3 leading-relaxed text-balance">
+          {t.onboarding.subtitle}
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label
+            htmlFor="name"
+            className="block text-[13px] text-neutral-400 dark:text-neutral-500 mb-2"
+          >
+            {t.onboarding.nameLabel}
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={t.onboarding.namePlaceholder}
+            className={fieldClass}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="when"
+            className="block text-[13px] text-neutral-400 dark:text-neutral-500 mb-2"
+          >
+            {t.onboarding.whenLabel}
+          </label>
+          <input
+            id="when"
+            type="datetime-local"
+            value={when}
+            onChange={(e) => setWhen(e.target.value)}
+            max={toLocalInputValue(new Date())}
+            required
+            className={fieldClass}
+          />
+          <p className="text-[13px] text-neutral-400 dark:text-neutral-600 mt-2">
+            {t.onboarding.whenHint}
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">
-              {t.onboarding.nameLabel}
-            </label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={t.onboarding.namePlaceholder}
-              className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 text-base text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-emerald-600"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="when" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">
-              {t.onboarding.whenLabel}
-            </label>
-            <input
-              id="when"
-              type="datetime-local"
-              value={when}
-              onChange={(e) => setWhen(e.target.value)}
-              max={toLocalInputValue(new Date())}
-              required
-              className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3 text-base text-neutral-900 dark:text-neutral-50 focus:outline-none focus:ring-2 focus:ring-emerald-600"
-            />
-            <p className="text-xs text-neutral-400 mt-1.5">{t.onboarding.whenHint}</p>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-xl bg-neutral-900 dark:bg-emerald-600 text-white font-medium text-base py-3.5 hover:bg-neutral-800 dark:hover:bg-emerald-500 active:bg-neutral-950 transition-colors"
-          >
-            {t.onboarding.submit}
-          </button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          className="w-full rounded-2xl bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 font-medium text-[15px] py-4 hover:opacity-90 transition-opacity"
+        >
+          {t.onboarding.submit}
+        </button>
+      </form>
     </div>
   );
 }

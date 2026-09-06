@@ -17,24 +17,27 @@ export default function Steps({ state, onUpdateStep }: Props) {
   const completedCount = stepList.filter((s) => state.steps[s.number]?.completed).length;
 
   return (
-    <div className="px-4 pt-6 pb-24 max-w-md mx-auto w-full">
-      <div className="mb-5">
-        <h1 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight">
-          {t.steps.title}
-        </h1>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">{t.steps.subtitle}</p>
-        <div className="mt-3 h-1.5 rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+    <div className="px-6 pt-10 pb-28 max-w-md mx-auto w-full">
+      <h1 className="font-serif text-[34px] leading-[1.1] text-neutral-900 dark:text-neutral-50">
+        {t.steps.title}
+      </h1>
+      <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-3 leading-relaxed">
+        {t.steps.subtitle}
+      </p>
+
+      <div className="mt-8 flex items-center gap-3">
+        <div className="flex-1 h-px bg-neutral-200 dark:bg-neutral-800 relative">
           <div
-            className="h-full bg-emerald-600 rounded-full transition-all"
+            className="absolute inset-y-0 left-0 bg-neutral-900 dark:bg-neutral-50 transition-all"
             style={{ width: `${(completedCount / stepList.length) * 100}%` }}
           />
         </div>
-        <p className="text-xs text-neutral-400 dark:text-neutral-500 mt-1.5">
-          {t.steps.progress(completedCount, stepList.length)}
+        <p className="text-[11px] text-neutral-400 dark:text-neutral-600 tabular-nums">
+          {String(completedCount).padStart(2, '0')}/{stepList.length}
         </p>
       </div>
 
-      <div className="space-y-2.5">
+      <div className="divide-y divide-neutral-100 dark:divide-neutral-900">
         {stepList.map((step) => (
           <StepCardWrapper
             key={step.number}

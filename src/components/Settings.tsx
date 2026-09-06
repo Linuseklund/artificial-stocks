@@ -100,21 +100,18 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
         <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-3">
           {t.settings.languageLabel}
         </p>
-        <div className="flex gap-2">
+        <select
+          aria-label={t.settings.languageLabel}
+          value={lang}
+          onChange={(e) => setLang(e.target.value as Lang)}
+          className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        >
           {languages.map((l) => (
-            <button
-              key={l}
-              onClick={() => setLang(l as Lang)}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium border transition-colors ${
-                lang === l
-                  ? 'bg-emerald-600 border-emerald-600 text-white'
-                  : 'border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300'
-              }`}
-            >
+            <option key={l} value={l}>
               {languageLabels[l]}
-            </button>
+            </option>
           ))}
-        </div>
+        </select>
       </section>
 
       <form

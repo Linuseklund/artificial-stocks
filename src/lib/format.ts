@@ -3,7 +3,7 @@ import type { UiStrings } from '../i18n/ui';
 
 export function formatStreakPhrase(d: Duration, t: UiStrings): string {
   if (d.totalHours < 24) return t.counter.today;
-  return `${d.days} ${t.counter.days(d.days)}`;
+  return `${d.days} ${t.counter.daysPhrase(d.days)}`;
 }
 
 function hashString(s: string): number {

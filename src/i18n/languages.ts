@@ -21,10 +21,9 @@ export const speechLocales: Record<Lang, string> = {
   it: 'it-IT',
 };
 
-export const defaultLang: Lang = 'sv';
-
-export function detectLang(): Lang {
-  if (typeof navigator === 'undefined') return defaultLang;
-  const browser = navigator.language?.slice(0, 2).toLowerCase();
-  return (languages as readonly string[]).includes(browser) ? (browser as Lang) : defaultLang;
-}
+/**
+ * The app opens in English for everyone, regardless of browser locale. The
+ * language picker sits at the top of Settings, and the choice is remembered
+ * from then on.
+ */
+export const defaultLang: Lang = 'en';

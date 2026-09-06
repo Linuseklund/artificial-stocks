@@ -1,7 +1,7 @@
 {
   "name": "Nykter – dag för dag",
   "short_name": "Nykter",
-  "description": "Stöd för nykterhet baserat på tolvstegsprogrammet.",
+  "description": "Sobriety support based on the twelve-step programme.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

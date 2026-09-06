@@ -1,5 +1,5 @@
 import type { AppState } from '../types';
-import { detectLang } from '../i18n/languages';
+import { defaultLang } from '../i18n/languages';
 
 const STORAGE_KEY = 'nykter-appstate-v2';
 
@@ -7,7 +7,7 @@ export function makeDefaultState(): AppState {
   return {
     soberSince: null,
     name: '',
-    lang: detectLang(),
+    lang: defaultLang,
     steps: {},
     notifications: { enabled: false, morningTime: '08:00', eveningTime: '20:00' },
     voice: { enabled: true, rate: 0.85, voiceURI: '', autoSpeakUrge: false },

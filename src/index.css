@@ -2,6 +2,17 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /*
+   * Display face for headings and the sobriety count. A system serif stack
+   * rather than a webfont: the app is offline-capable, and a network font
+   * would block first paint at exactly the moment someone opens it in a hurry.
+   * ui-serif resolves to New York on Apple platforms and Georgia elsewhere.
+   */
+  --font-serif: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
+
+  /* The single saturated colour in the interface, reserved for the urge button. */
+  --color-accent: #ff3b00;
+  --color-accent-strong: #d63100;
 }
 
 html {
@@ -11,7 +22,6 @@ html {
 
 body {
   background-color: light-dark(#ffffff, #0a0a0a);
-  /* Tabular figures keep the sobriety counter from jittering as it ticks. */
   font-variant-numeric: tabular-nums;
 }
 

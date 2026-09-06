@@ -26,7 +26,7 @@ export default function Onboarding({ onComplete }: Props) {
   return (
     <div className="min-h-screen flex flex-col justify-center px-7 py-12 max-w-md mx-auto w-full">
       <div className="mb-12">
-        <h1 className="text-3xl font-light text-neutral-900 dark:text-neutral-50 tracking-tight">
+        <h1 className="font-serif text-[44px] leading-[1.05] text-neutral-900 dark:text-neutral-50">
           {t.onboarding.title}
         </h1>
         <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-3 leading-relaxed text-balance">

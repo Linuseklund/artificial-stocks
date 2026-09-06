@@ -18,26 +18,26 @@ export default function Steps({ state, onUpdateStep }: Props) {
 
   return (
     <div className="px-6 pt-10 pb-28 max-w-md mx-auto w-full">
-      <h1 className="text-[22px] font-medium text-neutral-900 dark:text-neutral-50 tracking-tight">
+      <h1 className="font-serif text-[34px] leading-[1.1] text-neutral-900 dark:text-neutral-50">
         {t.steps.title}
       </h1>
-      <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-1 leading-relaxed">
+      <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-3 leading-relaxed">
         {t.steps.subtitle}
       </p>
 
-      <div className="mt-6 flex items-center gap-3">
-        <div className="flex-1 h-px bg-neutral-100 dark:bg-neutral-900 relative">
+      <div className="mt-8 flex items-center gap-3">
+        <div className="flex-1 h-px bg-neutral-200 dark:bg-neutral-800 relative">
           <div
             className="absolute inset-y-0 left-0 bg-neutral-900 dark:bg-neutral-50 transition-all"
             style={{ width: `${(completedCount / stepList.length) * 100}%` }}
           />
         </div>
-        <p className="text-[12px] text-neutral-400 dark:text-neutral-600 tabular-nums">
-          {completedCount}/{stepList.length}
+        <p className="text-[11px] text-neutral-400 dark:text-neutral-600 tabular-nums">
+          {String(completedCount).padStart(2, '0')}/{stepList.length}
         </p>
       </div>
 
-      <div className="mt-2 divide-y divide-neutral-100 dark:divide-neutral-900">
+      <div className="divide-y divide-neutral-100 dark:divide-neutral-900">
         {stepList.map((step) => (
           <StepCardWrapper
             key={step.number}

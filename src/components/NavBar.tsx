@@ -25,13 +25,13 @@ export default function NavBar({ active, onChange }: Props) {
             key={item.id}
             onClick={() => onChange(item.id)}
             aria-current={active === item.id ? 'page' : undefined}
-            className={`flex-1 flex flex-col items-center gap-1 py-3 text-[11px] transition-colors ${
+            className={`flex-1 flex flex-col items-center gap-1.5 py-3.5 text-[10px] tracking-[0.08em] uppercase transition-colors ${
               active === item.id
                 ? 'text-neutral-900 dark:text-neutral-50'
                 : 'text-neutral-400 dark:text-neutral-600'
             }`}
           >
-            <Icon name={item.icon} className="w-[22px] h-[22px]" />
+            <Icon name={item.icon} className="w-5 h-5" />
             {item.label}
           </button>
         ))}

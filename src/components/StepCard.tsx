@@ -14,47 +14,53 @@ export default function StepCard({ step, progress, onChange }: Props) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
 
-  const markerClass = progress.completed
-    ? 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 border-transparent'
+  const status = progress.completed
+    ? t.steps.statusDone
     : progress.started
-      ? 'border-neutral-900 dark:border-neutral-100 text-neutral-900 dark:text-neutral-100'
-      : 'border-neutral-200 dark:border-neutral-800 text-neutral-400 dark:text-neutral-600';
+      ? t.steps.statusStarted
+      : t.steps.statusNotStarted;
 
   return (
     <div>
-      <button onClick={() => setOpen((o) => !o)} className="w-full flex items-center gap-4 py-4 text-left">
-        <span
-          className={`flex-none w-8 h-8 rounded-full border flex items-center justify-center text-[13px] ${markerClass}`}
-        >
-          {progress.completed ? <Icon name="check" className="w-4 h-4" strokeWidth={2} /> : step.number}
-        </span>
-        <span className="flex-1 min-w-0">
-          <span className="block text-[15px] text-neutral-900 dark:text-neutral-100 leading-snug">
-            {step.title}
+      <button onClick={() => setOpen((o) => !o)} className="w-full py-6 text-left">
+        {/* Small grey meta line above a large serif title, as in the reference's
+            editorial lists. */}
+        <span className="flex items-center justify-between text-[11px] text-neutral-400 dark:text-neutral-600">
+          <span className="flex items-center gap-2">
+            <span className="tabular-nums">{String(step.number).padStart(2, '0')}</span>
+            <span className="w-4 h-px bg-neutral-300 dark:bg-neutral-700" />
+            <span>{status}</span>
           </span>
-          {(progress.started || progress.completed) && (
-            <span className="block text-[12px] text-neutral-400 dark:text-neutral-600 mt-0.5">
-              {progress.completed ? t.steps.statusDone : t.steps.statusStarted}
-            </span>
-          )}
+          <span className="flex items-center gap-2">
+            {progress.completed && <Icon name="check" className="w-3.5 h-3.5" strokeWidth={2} />}
+            <Icon
+              name="chevron"
+              className={`w-3.5 h-3.5 transition-transform ${open ? 'rotate-180' : ''}`}
+            />
+          </span>
         </span>
-        <Icon
-          name="chevron"
-          className={`w-4 h-4 flex-none text-neutral-300 dark:text-neutral-700 transition-transform ${open ? 'rotate-180' : ''}`}
-        />
+        <span
+          className={`block font-serif text-[26px] leading-[1.15] mt-2 ${
+            progress.completed
+              ? 'text-neutral-400 dark:text-neutral-600'
+              : 'text-neutral-900 dark:text-neutral-50'
+          }`}
+        >
+          {step.title}
+        </span>
       </button>
 
       {open && (
-        <div className="pb-6 pl-12 space-y-4">
+        <div className="pb-8 space-y-6">
           <p className="text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
             {step.description}
           </p>
 
           <div>
-            <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mb-1">
+            <p className="text-[11px] text-neutral-400 dark:text-neutral-600 mb-2">
               {t.steps.reflectionLabel}
             </p>
-            <p className="text-[15px] text-neutral-800 dark:text-neutral-200 leading-relaxed">
+            <p className="font-serif text-[19px] leading-snug text-neutral-800 dark:text-neutral-200">
               {step.reflection}
             </p>
           </div>
@@ -62,7 +68,7 @@ export default function StepCard({ step, progress, onChange }: Props) {
           <div>
             <label
               htmlFor={`notes-${step.number}`}
-              className="block text-[13px] text-neutral-400 dark:text-neutral-500 mb-1.5"
+              className="block text-[11px] text-neutral-400 dark:text-neutral-600 mb-2"
             >
               {t.steps.notesLabel}
             </label>
@@ -72,27 +78,27 @@ export default function StepCard({ step, progress, onChange }: Props) {
               onChange={(e) => onChange({ ...progress, notes: e.target.value })}
               placeholder={t.steps.notesPlaceholder}
               rows={3}
-              className="w-full rounded-xl bg-neutral-50 dark:bg-neutral-900 px-3.5 py-3 text-[15px] text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100 resize-none"
+              className="w-full bg-neutral-50 dark:bg-neutral-900 px-4 py-3.5 text-[15px] text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100 resize-none"
             />
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-px bg-neutral-200 dark:bg-neutral-800">
             <button
               onClick={() => onChange({ ...progress, started: true, completed: false })}
-              className={`flex-1 rounded-xl py-2.5 text-[14px] transition-colors ${
+              className={`flex-1 py-3 text-[13px] transition-colors ${
                 progress.started && !progress.completed
                   ? 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900'
-                  : 'bg-neutral-50 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400'
+                  : 'bg-white dark:bg-neutral-950 text-neutral-500 dark:text-neutral-400'
               }`}
             >
               {t.steps.markStarted}
             </button>
             <button
               onClick={() => onChange({ ...progress, started: true, completed: true })}
-              className={`flex-1 rounded-xl py-2.5 text-[14px] transition-colors ${
+              className={`flex-1 py-3 text-[13px] transition-colors ${
                 progress.completed
                   ? 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900'
-                  : 'bg-neutral-50 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400'
+                  : 'bg-white dark:bg-neutral-950 text-neutral-500 dark:text-neutral-400'
               }`}
             >
               {t.steps.markDone}

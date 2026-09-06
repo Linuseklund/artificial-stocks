@@ -128,7 +128,7 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
 
   return (
     <div className="px-6 pt-10 pb-28 max-w-md mx-auto w-full">
-      <h1 className="text-[22px] font-medium text-neutral-900 dark:text-neutral-50 tracking-tight">
+      <h1 className="font-serif text-[34px] leading-[1.1] text-neutral-900 dark:text-neutral-50">
         {t.settings.title}
       </h1>
       <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-1">{t.settings.subtitle}</p>

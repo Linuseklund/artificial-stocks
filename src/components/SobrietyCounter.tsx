@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function SobrietyCounter({ soberSince }: Props) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -16,19 +16,32 @@ export default function SobrietyCounter({ soberSince }: Props) {
   }, []);
 
   const { days, hours, minutes } = durationSince(soberSince, now);
+  const since = new Date(soberSince).toLocaleDateString(lang, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 
   return (
-    <div className="py-6">
+    <div className="py-10">
       <p className="text-[13px] text-neutral-400 dark:text-neutral-500">{t.counter.heading}</p>
-      <div className="flex items-baseline gap-2.5 mt-1">
-        <span className="text-6xl font-light text-neutral-900 dark:text-neutral-50 tracking-tighter leading-none">
+
+      <div className="flex items-baseline gap-3 mt-3">
+        <span className="font-serif text-[5.5rem] leading-[0.85] text-neutral-900 dark:text-neutral-50">
           {days}
         </span>
-        <span className="text-lg text-neutral-500 dark:text-neutral-400">{t.counter.days(days)}</span>
+        <span className="font-serif text-2xl text-neutral-400 dark:text-neutral-500">
+          {t.counter.days(days)}
+        </span>
       </div>
-      <p className="text-[13px] text-neutral-400 dark:text-neutral-500 mt-2.5">
-        {hours} {t.counter.hours(hours)} · {minutes} {t.counter.minutes(minutes)}
-      </p>
+
+      {/* Hairline with the exact figures beneath, in the reference's annotation style. */}
+      <div className="mt-5 pt-2.5 border-t border-neutral-200 dark:border-neutral-800 flex justify-between text-[11px] text-neutral-400 dark:text-neutral-600">
+        <span>
+          {hours} {t.counter.hours(hours)} · {minutes} {t.counter.minutes(minutes)}
+        </span>
+        <span>{since}</span>
+      </div>
     </div>
   );
 }

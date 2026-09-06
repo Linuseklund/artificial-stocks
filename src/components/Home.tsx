@@ -21,12 +21,12 @@ export default function Home({ name, soberSince, voice }: Props) {
 
   return (
     <div className="px-6 pt-10 pb-28 max-w-md mx-auto w-full">
-      <h1 className="text-[22px] font-medium text-neutral-900 dark:text-neutral-50 tracking-tight">
+      <h1 className="font-serif text-[34px] leading-[1.1] text-neutral-900 dark:text-neutral-50">
         {name ? t.home.greeting(name) : t.home.greetingNoName}
       </h1>
-      <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-1">{t.home.subtitle}</p>
+      <p className="text-[15px] text-neutral-400 dark:text-neutral-500 mt-3">{t.home.subtitle}</p>
 
-      <div className="divide-y divide-neutral-100 dark:divide-neutral-900 mt-4">
+      <div className="divide-y divide-neutral-100 dark:divide-neutral-900 mt-2">
         <SobrietyCounter soberSince={soberSince} />
         <DailyMessage soberSince={soberSince} />
       </div>

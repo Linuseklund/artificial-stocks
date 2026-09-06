@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { AppState } from '../types';
 import { useI18n } from '../i18n/context';
 import { languages, languageLabels, type Lang } from '../i18n/languages';
@@ -7,6 +7,8 @@ import {
   requestNotificationPermission,
   sendTestNotification,
 } from '../lib/notifications';
+import { listVoices, speak, speechSupported, stopSpeaking, waitForVoices } from '../lib/speech';
+import { voiceReplies } from '../data/voiceScripts';
 
 interface Props {
   state: AppState;
@@ -30,6 +32,30 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
     () => notificationsSupported() && Notification.permission === 'denied',
   );
   const [testSent, setTestSent] = useState(false);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+
+  const voiceAvailable = speechSupported();
+
+  useEffect(() => {
+    if (!voiceAvailable) return;
+    let cancelled = false;
+    void waitForVoices().then(() => {
+      if (!cancelled) setVoices(listVoices(lang));
+    });
+    return () => {
+      cancelled = true;
+      stopSpeaking();
+    };
+  }, [lang, voiceAvailable]);
+
+  function updateVoice(patch: Partial<AppState['voice']>) {
+    onUpdateState({ ...state, voice: { ...state.voice, ...patch } });
+  }
+
+  function testVoice(settings = state.voice) {
+    const sample = voiceReplies[lang].general[1];
+    speak(sample, { lang, rate: settings.rate, voiceURI: settings.voiceURI || undefined });
+  }
 
   function save(e: React.FormEvent) {
     e.preventDefault();
@@ -128,6 +154,116 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
           {t.settings.save}
         </button>
       </form>
+
+      <section className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-4 space-y-4">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+              {t.settings.voiceTitle}
+            </p>
+            <p className="text-xs text-neutral-400 mt-0.5 leading-relaxed">
+              {voiceAvailable ? t.settings.voiceDescription : t.settings.voiceUnsupported}
+            </p>
+          </div>
+          <button
+            role="switch"
+            aria-checked={state.voice.enabled}
+            aria-label={t.settings.voiceEnable}
+            onClick={() => {
+              if (state.voice.enabled) stopSpeaking();
+              updateVoice({ enabled: !state.voice.enabled });
+            }}
+            disabled={!voiceAvailable}
+            className={`flex-none w-11 h-6 rounded-full transition-colors relative disabled:opacity-40 ${
+              state.voice.enabled ? 'bg-emerald-600' : 'bg-neutral-200 dark:bg-neutral-700'
+            }`}
+          >
+            <span
+              className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+                state.voice.enabled ? 'translate-x-5' : 'translate-x-0.5'
+              }`}
+            />
+          </button>
+        </div>
+
+        {voiceAvailable && state.voice.enabled && (
+          <div className="space-y-3 pt-1">
+            <div>
+              <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1.5">
+                {t.settings.voiceSpeedLabel}
+              </p>
+              <div className="flex gap-2">
+                {[
+                  { rate: 0.75, label: t.settings.voiceSpeedSlow },
+                  { rate: 0.85, label: t.settings.voiceSpeedCalm },
+                  { rate: 1, label: t.settings.voiceSpeedNormal },
+                ].map((option) => (
+                  <button
+                    key={option.rate}
+                    onClick={() => {
+                      updateVoice({ rate: option.rate });
+                      testVoice({ ...state.voice, rate: option.rate });
+                    }}
+                    className={`flex-1 rounded-lg py-2 text-sm font-medium border transition-colors ${
+                      state.voice.rate === option.rate
+                        ? 'bg-emerald-600 border-emerald-600 text-white'
+                        : 'border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {voices.length > 0 && (
+              <div>
+                <label
+                  htmlFor="voice-pick"
+                  className="block text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1.5"
+                >
+                  {t.settings.voicePickLabel}
+                </label>
+                <select
+                  id="voice-pick"
+                  value={state.voice.voiceURI}
+                  onChange={(e) => {
+                    updateVoice({ voiceURI: e.target.value });
+                    testVoice({ ...state.voice, voiceURI: e.target.value });
+                  }}
+                  className="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-2.5 text-sm text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                >
+                  <option value="">{t.settings.voiceAuto}</option>
+                  {voices.map((v) => (
+                    <option key={v.voiceURI} value={v.voiceURI}>
+                      {v.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            <label className="flex items-start gap-2.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={state.voice.autoSpeakUrge}
+                onChange={(e) => updateVoice({ autoSpeakUrge: e.target.checked })}
+                className="mt-0.5 w-4 h-4 accent-emerald-600"
+              />
+              <span className="text-sm text-neutral-600 dark:text-neutral-300 leading-snug">
+                {t.settings.voiceAutoSpeakUrge}
+              </span>
+            </label>
+
+            <button
+              onClick={() => testVoice()}
+              className="w-full rounded-lg border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300 text-sm font-medium py-2.5"
+            >
+              {t.settings.voiceTest}
+            </button>
+          </div>
+        )}
+      </section>
 
       <section className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-4 space-y-4">
         <div className="flex items-start justify-between gap-3">

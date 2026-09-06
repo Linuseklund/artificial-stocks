@@ -53,7 +53,9 @@ export default function App() {
         <Onboarding onComplete={handleOnboardingComplete} />
       ) : (
         <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
-          {tab === 'home' && <Home name={state.name} soberSince={state.soberSince} />}
+          {tab === 'home' && (
+            <Home name={state.name} soberSince={state.soberSince} voice={state.voice} />
+          )}
           {tab === 'steps' && <Steps state={state} onUpdateStep={handleUpdateStep} />}
           {tab === 'settings' && (
             <Settings state={state} onUpdateProfile={handleSettingsUpdate} onUpdateState={update} onReset={handleReset} />

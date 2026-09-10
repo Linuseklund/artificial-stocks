@@ -18,7 +18,7 @@ export default function NavBar({ active, onChange }: Props) {
   ];
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl border-t border-neutral-100 dark:border-neutral-900">
+    <nav className="nav-shell fixed bottom-0 inset-x-0 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl border-t border-neutral-100 dark:border-neutral-900">
       <div className="max-w-md mx-auto flex px-4">
         {items.map((item) => (
           <button

@@ -78,7 +78,7 @@ export default function StepCard({ step, progress, onChange }: Props) {
               onChange={(e) => onChange({ ...progress, notes: e.target.value })}
               placeholder={t.steps.notesPlaceholder}
               rows={3}
-              className="w-full bg-neutral-50 dark:bg-neutral-900 px-4 py-3.5 text-[15px] text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100 resize-none"
+              className="w-full bg-neutral-50 dark:bg-neutral-900 px-4 py-3.5 text-[16px] text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100 resize-none"
             />
           </div>
 

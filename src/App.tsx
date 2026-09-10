@@ -52,7 +52,7 @@ export default function App() {
       {!state.soberSince ? (
         <Onboarding onComplete={handleOnboardingComplete} />
       ) : (
-        <div className="min-h-screen bg-white dark:bg-neutral-950">
+        <div className="min-h-screen min-h-dvh bg-white dark:bg-neutral-950">
           {tab === 'home' && (
             <Home name={state.name} soberSince={state.soberSince} voice={state.voice} />
           )}

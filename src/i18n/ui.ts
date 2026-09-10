@@ -123,6 +123,10 @@ export interface UiStrings {
     voiceQualityHint: string;
     voiceTest: string;
     voiceAutoSpeakUrge: string;
+    shareTitle: string;
+    shareDescription: string;
+    shareButton: string;
+    shareCopied: string;
     dangerTitle: string;
     dangerDescription: string;
     dangerButton: string;
@@ -262,6 +266,10 @@ export const ui: Record<Lang, UiStrings> = {
       voiceQualityHint: 'Låter rösten mekanisk? De flesta system har mänskligare röster att ladda ner. iPhone: Inställningar → Tillgänglighet → Talat innehåll → Röster. Android: Inställningar → Tillgänglighet → Text till tal.',
       voiceTest: 'Testa rösten',
       voiceAutoSpeakUrge: 'Läs upp automatiskt när jag trycker på sugknappen',
+      shareTitle: 'Dela appen',
+      shareDescription: 'Appen är gratis och kräver inget konto. Skicka länken till någon som kan ha nytta av den.',
+      shareButton: 'Dela länken',
+      shareCopied: 'Länken är kopierad',
       dangerTitle: 'Radera all data',
       dangerDescription: 'Tar bort din nykterhetstid, dina anteckningar och din stegframgång permanent från den här enheten.',
       dangerButton: 'Radera data',
@@ -399,6 +407,10 @@ export const ui: Record<Lang, UiStrings> = {
       voiceQualityHint: 'Does the voice sound robotic? Most systems have more human voices available to download. iPhone: Settings → Accessibility → Spoken Content → Voices. Android: Settings → Accessibility → Text-to-speech.',
       voiceTest: 'Test the voice',
       voiceAutoSpeakUrge: 'Read aloud automatically when I tap the craving button',
+      shareTitle: 'Share the app',
+      shareDescription: 'The app is free and needs no account. Send the link to someone it could help.',
+      shareButton: 'Share the link',
+      shareCopied: 'Link copied',
       dangerTitle: 'Delete all data',
       dangerDescription: 'Permanently removes your sobriety time, notes, and step progress from this device.',
       dangerButton: 'Delete data',
@@ -536,6 +548,10 @@ export const ui: Record<Lang, UiStrings> = {
       voiceQualityHint: 'Klingt die Stimme mechanisch? Die meisten Systeme haben natürlichere Stimmen zum Herunterladen. iPhone: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen. Android: Einstellungen → Bedienungshilfen → Text-in-Sprache.',
       voiceTest: 'Stimme testen',
       voiceAutoSpeakUrge: 'Automatisch vorlesen, wenn ich auf den Verlangen-Knopf tippe',
+      shareTitle: 'App teilen',
+      shareDescription: 'Die App ist kostenlos und braucht kein Konto. Schick den Link an jemanden, dem sie helfen könnte.',
+      shareButton: 'Link teilen',
+      shareCopied: 'Link kopiert',
       dangerTitle: 'Alle Daten löschen',
       dangerDescription: 'Entfernt deine nüchterne Zeit, deine Notizen und deinen Fortschritt dauerhaft von diesem Gerät.',
       dangerButton: 'Daten löschen',
@@ -673,6 +689,10 @@ export const ui: Record<Lang, UiStrings> = {
       voiceQualityHint: 'La voix sonne mécanique ? La plupart des systèmes proposent des voix plus humaines à télécharger. iPhone : Réglages → Accessibilité → Contenu énoncé → Voix. Android : Paramètres → Accessibilité → Synthèse vocale.',
       voiceTest: 'Tester la voix',
       voiceAutoSpeakUrge: 'Lire automatiquement quand j’appuie sur le bouton d’envie',
+      shareTitle: 'Partager l\'application',
+      shareDescription: 'L\'application est gratuite et ne demande aucun compte. Envoyez le lien à quelqu\'un que cela pourrait aider.',
+      shareButton: 'Partager le lien',
+      shareCopied: 'Lien copié',
       dangerTitle: 'Supprimer toutes les données',
       dangerDescription: 'Supprime définitivement de cet appareil ton temps de sobriété, tes notes et ta progression.',
       dangerButton: 'Supprimer les données',
@@ -810,6 +830,10 @@ export const ui: Record<Lang, UiStrings> = {
       voiceQualityHint: '¿La voz suena robótica? La mayoría de los sistemas tienen voces más humanas para descargar. iPhone: Ajustes → Accesibilidad → Contenido hablado → Voces. Android: Ajustes → Accesibilidad → Texto a voz.',
       voiceTest: 'Probar la voz',
       voiceAutoSpeakUrge: 'Leer automáticamente cuando pulse el botón de ganas',
+      shareTitle: 'Compartir la aplicación',
+      shareDescription: 'La aplicación es gratuita y no requiere cuenta. Envía el enlace a alguien a quien pueda ayudar.',
+      shareButton: 'Compartir el enlace',
+      shareCopied: 'Enlace copiado',
       dangerTitle: 'Borrar todos los datos',
       dangerDescription: 'Elimina de forma permanente de este dispositivo tu tiempo sobrio, tus notas y tu progreso.',
       dangerButton: 'Borrar datos',
@@ -947,6 +971,10 @@ export const ui: Record<Lang, UiStrings> = {
       voiceQualityHint: 'La voce suona meccanica? La maggior parte dei sistemi ha voci più umane da scaricare. iPhone: Impostazioni → Accessibilità → Contenuto pronunciato → Voci. Android: Impostazioni → Accessibilità → Sintesi vocale.',
       voiceTest: 'Prova la voce',
       voiceAutoSpeakUrge: 'Leggi automaticamente quando tocco il pulsante del desiderio',
+      shareTitle: 'Condividi l\'app',
+      shareDescription: 'L\'app è gratuita e non richiede alcun account. Manda il link a qualcuno a cui può servire.',
+      shareButton: 'Condividi il link',
+      shareCopied: 'Link copiato',
       dangerTitle: 'Elimina tutti i dati',
       dangerDescription: 'Rimuove definitivamente da questo dispositivo il tuo tempo da sobrio, i tuoi appunti e i tuoi progressi.',
       dangerButton: 'Elimina i dati',

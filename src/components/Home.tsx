@@ -20,7 +20,7 @@ export default function Home({ name, soberSince, voice }: Props) {
   const [showVoice, setShowVoice] = useState(false);
 
   return (
-    <div className="px-6 pt-10 pb-28 max-w-md mx-auto w-full">
+    <div className="page-shell max-w-md mx-auto w-full">
       <h1 className="font-serif text-[34px] leading-[1.1] text-neutral-900 dark:text-neutral-50">
         {name ? t.home.greeting(name) : t.home.greetingNoName}
       </h1>

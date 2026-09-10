@@ -73,7 +73,7 @@ export default function UrgeModal({ voice, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-950/30 dark:bg-black/60 backdrop-blur-md px-4 py-6">
+    <div className="sheet-shell fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-neutral-950/30 dark:bg-black/60 backdrop-blur-md px-4 pt-6">
       <div className="w-full max-w-sm bg-white dark:bg-neutral-950 rounded-3xl max-h-[92vh] overflow-y-auto ring-1 ring-neutral-900/5 dark:ring-white/10">
         <div className="px-7 pt-9 pb-6">
           <h2 className="font-serif text-[30px] leading-[1.1] text-neutral-900 dark:text-neutral-50 text-balance">

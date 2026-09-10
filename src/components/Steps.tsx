@@ -17,7 +17,7 @@ export default function Steps({ state, onUpdateStep }: Props) {
   const completedCount = stepList.filter((s) => state.steps[s.number]?.completed).length;
 
   return (
-    <div className="px-6 pt-10 pb-28 max-w-md mx-auto w-full">
+    <div className="page-shell max-w-md mx-auto w-full">
       <h1 className="font-serif text-[34px] leading-[1.1] text-neutral-900 dark:text-neutral-50">
         {t.steps.title}
       </h1>

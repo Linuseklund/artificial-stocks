@@ -24,7 +24,7 @@ function toLocalInputValue(iso: string): string {
 }
 
 const fieldClass =
-  'w-full rounded-2xl bg-neutral-50 dark:bg-neutral-900 px-4 py-3 text-[15px] text-neutral-900 dark:text-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100';
+  'w-full rounded-2xl bg-neutral-50 dark:bg-neutral-900 px-4 py-3 text-[16px] text-neutral-900 dark:text-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100';
 const labelClass = 'block text-[13px] text-neutral-400 dark:text-neutral-500 mb-2';
 const sectionTitleClass = 'text-[15px] text-neutral-900 dark:text-neutral-100';
 const hintClass = 'text-[13px] text-neutral-400 dark:text-neutral-600 leading-relaxed';
@@ -41,23 +41,30 @@ function Toggle({
   disabled?: boolean;
 }) {
   return (
+    // The button is the hit area — 44pt tall per Apple's guidance — while the
+    // pill inside keeps the 46x28 look. Nesting them keeps the thumb's target
+    // generous without the control growing visually.
     <button
       role="switch"
       aria-checked={checked}
       aria-label={label}
       onClick={onChange}
       disabled={disabled}
-      className={`flex-none w-[46px] h-[28px] rounded-full transition-colors relative disabled:opacity-30 ${
-        checked ? 'bg-neutral-900 dark:bg-neutral-50' : 'bg-neutral-200 dark:bg-neutral-800'
-      }`}
+      className="flex-none w-[46px] h-[44px] grid place-items-center disabled:opacity-30"
     >
       <span
-        className={`absolute left-0 top-[3px] w-[22px] h-[22px] rounded-full transition-transform ${
-          checked
-            ? 'translate-x-[21px] bg-white dark:bg-neutral-900'
-            : 'translate-x-[3px] bg-white dark:bg-neutral-600'
+        className={`relative block w-[46px] h-[28px] rounded-full transition-colors ${
+          checked ? 'bg-neutral-900 dark:bg-neutral-50' : 'bg-neutral-200 dark:bg-neutral-800'
         }`}
-      />
+      >
+        <span
+          className={`absolute left-0 top-[3px] w-[22px] h-[22px] rounded-full transition-transform ${
+            checked
+              ? 'translate-x-[21px] bg-white dark:bg-neutral-900'
+              : 'translate-x-[3px] bg-white dark:bg-neutral-600'
+          }`}
+        />
+      </span>
     </button>
   );
 }
@@ -127,7 +134,7 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
   }
 
   return (
-    <div className="px-6 pt-10 pb-28 max-w-md mx-auto w-full">
+    <div className="page-shell max-w-md mx-auto w-full">
       <h1 className="font-serif text-[34px] leading-[1.1] text-neutral-900 dark:text-neutral-50">
         {t.settings.title}
       </h1>
@@ -222,7 +229,7 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
                         updateVoice({ rate: option.rate });
                         testVoice({ ...state.voice, rate: option.rate });
                       }}
-                      className={`flex-1 rounded-xl py-2.5 text-[14px] transition-colors ${
+                      className={`flex-1 rounded-xl py-3 text-[14px] min-h-[44px] transition-colors ${
                         state.voice.rate === option.rate
                           ? 'bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900'
                           : 'bg-neutral-50 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400'
@@ -260,12 +267,14 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
 
               <p className={hintClass}>{t.settings.voiceQualityHint}</p>
 
-              <label className="flex items-start gap-3 cursor-pointer">
+              {/* py-1.5 lifts the whole row past a 44pt touch target; the label
+                  wraps the box so the words are tappable too. */}
+              <label className="flex items-start gap-3 py-1.5 min-h-[44px] cursor-pointer">
                 <input
                   type="checkbox"
                   checked={state.voice.autoSpeakUrge}
                   onChange={(e) => updateVoice({ autoSpeakUrge: e.target.checked })}
-                  className="mt-0.5 w-4 h-4 accent-neutral-900 dark:accent-neutral-50"
+                  className="mt-0.5 w-5 h-5 flex-none accent-neutral-900 dark:accent-neutral-50"
                 />
                 <span className="text-[14px] text-neutral-600 dark:text-neutral-400 leading-snug">
                   {t.settings.voiceAutoSpeakUrge}
@@ -313,7 +322,7 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
                   type="time"
                   value={state.notifications.morningTime}
                   onChange={(e) => updateTime('morningTime', e.target.value)}
-                  className="rounded-xl bg-neutral-50 dark:bg-neutral-900 px-3 py-2 text-[15px] text-neutral-900 dark:text-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
+                  className="rounded-xl bg-neutral-50 dark:bg-neutral-900 px-3 py-2.5 text-[16px] text-neutral-900 dark:text-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
                 />
               </div>
               <div className="flex items-center justify-between gap-3">
@@ -325,7 +334,7 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
                   type="time"
                   value={state.notifications.eveningTime}
                   onChange={(e) => updateTime('eveningTime', e.target.value)}
-                  className="rounded-xl bg-neutral-50 dark:bg-neutral-900 px-3 py-2 text-[15px] text-neutral-900 dark:text-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
+                  className="rounded-xl bg-neutral-50 dark:bg-neutral-900 px-3 py-2.5 text-[16px] text-neutral-900 dark:text-neutral-50 focus:outline-none focus:ring-1 focus:ring-neutral-900 dark:focus:ring-neutral-100"
                 />
               </div>
               <button

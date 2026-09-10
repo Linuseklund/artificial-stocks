@@ -3,12 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Sobriety support, based on the twelve-step programme." />
     <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <!-- iOS ignores SVG touch icons and falls back to a screenshot of the page. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Translucent, so the page's own background paints behind the status bar
+         and follows light and dark mode instead of a fixed bar colour. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Sober" />
     <title>Sober – day by day</title>
   </head>
   <body>

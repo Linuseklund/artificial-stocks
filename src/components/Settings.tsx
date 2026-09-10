@@ -9,6 +9,7 @@ import {
 } from '../lib/notifications';
 import { listVoices, speak, speechSupported, stopSpeaking, waitForVoices } from '../lib/speech';
 import { voiceReplies } from '../data/voiceScripts';
+import { shareApp, shareUrl } from '../lib/share';
 
 interface Props {
   state: AppState;
@@ -79,6 +80,7 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
   );
   const [testSent, setTestSent] = useState(false);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [shareCopied, setShareCopied] = useState(false);
 
   const voiceAvailable = speechSupported();
 
@@ -125,6 +127,13 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
 
   function updateTime(field: 'morningTime' | 'eveningTime', value: string) {
     onUpdateState({ ...state, notifications: { ...state.notifications, [field]: value } });
+  }
+
+  async function handleShare() {
+    const result = await shareApp(t.settings.shareTitle, t.settings.shareDescription);
+    if (result !== 'copied') return;
+    setShareCopied(true);
+    setTimeout(() => setShareCopied(false), 2500);
   }
 
   function handleTestNotification() {
@@ -345,6 +354,20 @@ export default function Settings({ state, onUpdateProfile, onUpdateState, onRese
               </button>
             </div>
           )}
+        </section>
+
+        <section className="py-6 space-y-4">
+          <div>
+            <p className={sectionTitleClass}>{t.settings.shareTitle}</p>
+            <p className={`${hintClass} mt-1`}>{t.settings.shareDescription}</p>
+          </div>
+          <button
+            onClick={handleShare}
+            className="w-full rounded-xl bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 text-[14px] min-h-[44px] py-3"
+          >
+            {shareCopied ? t.settings.shareCopied : t.settings.shareButton}
+          </button>
+          <p className="text-[12px] text-neutral-300 dark:text-neutral-700 break-all">{shareUrl}</p>
         </section>
 
         <section className="py-6">
